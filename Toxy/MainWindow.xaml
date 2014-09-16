@@ -27,7 +27,7 @@
                       RenderOptions.ClearTypeHint="Enabled"
                       TextOptions.TextRenderingMode="ClearType"
                       TextOptions.TextFormattingMode="Display"
-                      Activated="mv_Activated" >
+                      Activated="mv_Activated" Loaded="mv_Loaded" >
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>

@@ -129,26 +129,9 @@ namespace Toxy
 
             if (!bootstrap_success)
                 Console.WriteLine("Could not bootstrap from any node!");
-
-            loadTox();
-            tox.Start();
-
-            if (string.IsNullOrEmpty(tox.GetSelfName()))
-                tox.SetName("Toxy User");
-
-            this.ViewModel.MainToxyUser.Name = tox.GetSelfName();
-            this.ViewModel.MainToxyUser.StatusMessage = tox.GetSelfStatusMessage();
-
-            InitializeNotifyIcon();
-
-            SetStatus(null);
-            InitFriends();
-
-            if (tox.GetFriendlistCount() > 0)
-                this.ViewModel.SelectedChatObject = this.ViewModel.ChatCollection.OfType<IFriendObject>().FirstOrDefault();
         }
 
-        private void loadTox()
+        private async void loadTox()
         {
             if (File.Exists(toxDataFilename) && !config.Portable)
             {
@@ -219,6 +202,50 @@ namespace Toxy
                         tox.Load(path);
                     }
                 }
+            }
+
+            string toxLoc;
+            if (config.Portable)
+                toxLoc = "tox_save";
+            else
+                toxLoc = toxDataFilename;
+
+            if (!tox.IsDataEncrypted(toxLoc))
+
+            if (config.AskAboutEncryption)
+            {
+                if (!tox.IsDataEncrypted(toxLoc))
+                {
+                    MessageDialogResult result = await this.ShowMessageAsync("Important notice",
+                        "We detected that your Tox data file is not encrypted. Do you want to encrypt your data? (we will never ask this again)",
+                        MessageDialogStyle.AffirmativeAndNegative,
+                        new MetroDialogSettings()
+                        {
+                            AffirmativeButtonText = "Yes",
+                            NegativeButtonText = "No"
+                        }
+                    );
+
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        string input = await this.ShowInputAsync("Encrypt Tox data", "Enter a strong password to encrypt your Tox data with\n\nNotice: if you forget the password there is NO WAY to recover your Tox data. Your public/private key and your friend list will be lost.", new MetroDialogSettings() { });
+
+                        if (!string.IsNullOrWhiteSpace(input))
+                        {
+                            if (!tox.SaveEncrypted(toxLoc, input))
+                            {
+                                await this.ShowMessageAsync("Fatal error", "Could not encrypt/save Tox data.");
+                                goto skipsave;
+                            }
+                        }
+                    }
+                }
+
+                config.AskAboutEncryption = false;
+                ConfigTools.Save(config, "config.xml");
+
+            skipsave:
+                Console.WriteLine();
             }
         }
 
@@ -1802,6 +1829,26 @@ namespace Toxy
 
             try { File.WriteAllBytes(dialog.FileName, tox.GetDataBytes()); }
             catch { this.ShowMessageAsync("Error", "Could not export data."); }
+        }
+
+        private void mv_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadTox();
+            tox.Start();
+
+            if (string.IsNullOrEmpty(tox.GetSelfName()))
+                tox.SetName("Toxy User");
+
+            this.ViewModel.MainToxyUser.Name = tox.GetSelfName();
+            this.ViewModel.MainToxyUser.StatusMessage = tox.GetSelfStatusMessage();
+
+            InitializeNotifyIcon();
+
+            SetStatus(null);
+            InitFriends();
+
+            if (tox.GetFriendlistCount() > 0)
+                this.ViewModel.SelectedChatObject = this.ViewModel.ChatCollection.OfType<IFriendObject>().FirstOrDefault();
         }
     }
 }
