@@ -778,7 +778,7 @@ namespace Toxy
             if (call == null)
                 return;
 
-            call.ProcessAudioFrame(e.Data);
+            call.ProcessAudioFrame(e.Data, (int)toxav.GetPeerCodecSettings(e.CallIndex, 0).AudioChannels);
         }
 
         private void toxav_OnEnd(object sender, ToxAvEventArgs.CallStateEventArgs e)

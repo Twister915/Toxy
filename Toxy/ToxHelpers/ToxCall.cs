@@ -14,9 +14,6 @@ namespace Toxy.ToxHelpers
     {
         public int GroupNumber;
 
-        public WaveOut wave_out_single;
-        public BufferedWaveProvider wave_provider_single;
-
         public ToxGroupCall(ToxAv toxav, int groupNumber)
             : base(toxav)
         {
@@ -42,7 +39,7 @@ namespace Toxy.ToxHelpers
                 if (input != -1)
                     wave_source.DeviceNumber = input - 1;
 
-                WaveFormat inFormat = new WaveFormat((int)ToxAv.DefaultCodecSettings.AudioSampleRate, 1);
+                WaveFormat inFormat = new WaveFormat((int)ToxAv.DefaultCodecSettings.AudioSampleRate, wave_source.WaveFormat.Channels);
 
                 wave_source.WaveFormat = inFormat;
                 wave_source.DataAvailable += wave_source_DataAvailable;
@@ -64,10 +61,10 @@ namespace Toxy.ToxHelpers
                 wave_out_single = new WaveOut();
 
                 if (output != -1)
-                    wave_out.DeviceNumber = output - 1;
+                    wave_out_single.DeviceNumber = output - 1;
 
-                wave_out.Init(wave_provider_single);
-                wave_out.Play();
+                wave_out_single.Init(wave_provider_single);
+                wave_out_single.Play();
             }
         }
 
@@ -101,18 +98,6 @@ namespace Toxy.ToxHelpers
                 Debug.WriteLine("Could not send audio to groupchat #{0}", GroupNumber);
         }
 
-        public void ProcessAudioFrame(short[] frame, int channels)
-        {
-            var waveOut = channels == 2 ? wave_out : wave_out_single;
-            var waveProvider = channels == 2 ? wave_provider : wave_provider_single;
-
-            if (waveOut != null && waveProvider != null)
-            {
-                byte[] bytes = ShortArrayToByteArray(frame);
-                waveProvider.AddSamples(bytes, 0, bytes.Length);
-            }
-        }
-
         /// <summary>
         /// Not implemented.
         /// </summary>
@@ -137,7 +122,9 @@ namespace Toxy.ToxHelpers
 
         protected WaveIn wave_source;
         protected WaveOut wave_out;
+        protected WaveOut wave_out_single;
         protected BufferedWaveProvider wave_provider;
+        protected BufferedWaveProvider wave_provider_single;
 
         public bool FilterAudio = false;
 
@@ -169,8 +156,12 @@ namespace Toxy.ToxHelpers
             toxav.PrepareTransmission(CallIndex, false);
 
             WaveFormat outFormat = new WaveFormat((int)settings.AudioSampleRate, (int)settings.AudioChannels);
+            WaveFormat outFormatSingle = new WaveFormat((int)settings.AudioSampleRate, 1);
+
             wave_provider = new BufferedWaveProvider(outFormat);
             wave_provider.DiscardOnBufferOverflow = true;
+            wave_provider_single = new BufferedWaveProvider(outFormatSingle);
+            wave_provider_single.DiscardOnBufferOverflow = true;
 
             filterAudio = new FilterAudio((int)settings.AudioSampleRate);
 
@@ -181,7 +172,7 @@ namespace Toxy.ToxHelpers
                 if (input != -1)
                     wave_source.DeviceNumber = input - 1;
 
-                WaveFormat inFormat = new WaveFormat((int)ToxAv.DefaultCodecSettings.AudioSampleRate, 1);
+                WaveFormat inFormat = new WaveFormat((int)ToxAv.DefaultCodecSettings.AudioSampleRate, wave_source.WaveFormat.Channels);
 
                 wave_source.WaveFormat = inFormat;
                 wave_source.DataAvailable += wave_source_DataAvailable;
@@ -199,6 +190,14 @@ namespace Toxy.ToxHelpers
 
                 wave_out.Init(wave_provider);
                 wave_out.Play();
+
+                wave_out_single = new WaveOut();
+
+                if (output != -1)
+                    wave_out_single.DeviceNumber = output - 1;
+
+                wave_out_single.Init(wave_provider_single);
+                wave_out_single.Play();
             }
         }
 
@@ -212,13 +211,16 @@ namespace Toxy.ToxHelpers
             Debug.WriteLine("Recording stopped");
         }
 
-        public virtual void ProcessAudioFrame(short[] frame)
+        public virtual void ProcessAudioFrame(short[] frame, int channels)
         {
-            if (wave_out == null)
-                return;
+            var waveOut = channels == 2 ? wave_out : wave_out_single;
+            var waveProvider = channels == 2 ? wave_provider : wave_provider_single;
 
-            byte[] bytes = ShortArrayToByteArray(frame);
-            wave_provider.AddSamples(bytes, 0, bytes.Length);
+            if (waveOut != null && waveProvider != null)
+            {
+                byte[] bytes = ShortArrayToByteArray(frame);
+                waveProvider.AddSamples(bytes, 0, bytes.Length);
+            }
         }
 
         protected byte[] ShortArrayToByteArray(short[] shorts)
