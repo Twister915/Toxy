@@ -174,6 +174,12 @@ namespace Toxy.ToxHelpers
 
                 WaveFormat inFormat = new WaveFormat((int)ToxAv.DefaultCodecSettings.AudioSampleRate, wave_source.WaveFormat.Channels);
 
+                if (wave_source.WaveFormat.Channels != settings.AudioChannels)
+                {
+                    settings.AudioChannels = (uint)wave_source.WaveFormat.Channels;
+                    toxav.ChangeSettings(CallIndex, settings);
+                }
+
                 wave_source.WaveFormat = inFormat;
                 wave_source.DataAvailable += wave_source_DataAvailable;
                 wave_source.RecordingStopped += wave_source_RecordingStopped;
