@@ -1079,6 +1079,8 @@ namespace Toxy
 
         private void applyConfig()
         {
+            App.SetCulture(config.Culture);
+
             var accent = ThemeManager.GetAccent(config.AccentColor);
             var theme = ThemeManager.GetAppTheme(config.Theme);
 

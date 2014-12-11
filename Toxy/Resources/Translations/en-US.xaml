@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Settings-->
+    <system:String x:Key="Settings_Title">Settings</system:String>
+    <system:String x:Key="Enter_Username">Enter your desired username</system:String>
+    <system:String x:Key="Enter_Status">Enter your desired status message</system:String>
+    <system:String x:Key="Change_Nospam">Change nospam (note: this will change your id)</system:String>
+    <system:String x:Key="Pick_Accent">Pick an accent color</system:String>
+    <system:String x:Key="Pick_Devices">Choose which devices should be used</system:String>
+    <system:String x:Key="Filter_Audio">Filter input audio</system:String>
+    <system:String x:Key="Hide_In_Tray">Hide in tray</system:String>
+    <system:String x:Key="Portable">Portable</system:String>
+    <system:String x:Key="Enable_Chat_Logging">Enable chat logging</system:String>
+    <system:String x:Key="Enable_Audible_Alerts">Enable audible message alerts</system:String>
+    <system:String x:Key="Always_Play_Alert">Always play sound, even when Toxy is open</system:String>
+</ResourceDictionary>

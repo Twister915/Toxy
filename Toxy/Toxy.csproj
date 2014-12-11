@@ -156,6 +156,14 @@
     <Compile Include="Views\SwitchProfileDialog.xaml.cs">
       <DependentUpon>SwitchProfileDialog.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\Translations\en-US.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Translations\nl-NL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CallControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -281,6 +289,7 @@
     <Resource Include="Resources\Icons\icon2.ico" />
     <Resource Include="Resources\Icons\icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

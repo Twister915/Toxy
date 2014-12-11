@@ -141,6 +141,14 @@ namespace Toxy.Common
             set { enableChatLogging = value; }
         }
 
+        private string culture = "en-US";
+
+        public string Culture
+        {
+            get { return culture; }
+            set { culture = value; }
+        }
+
         private ToxConfigNode[] nodes = new ToxConfigNode[] 
         {
             new ToxConfigNode() { ClientId = "951C88B7E75C867418ACDB5D273821372BB5BD652740BCDF623A4FA293E75D2F", Address = "192.254.75.98", Port = 33445 },

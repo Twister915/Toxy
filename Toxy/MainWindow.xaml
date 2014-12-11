@@ -578,13 +578,13 @@
                 </Grid>
             </controls:Flyout>
             <controls:Flyout x:Name="SettingsFlyout"
-                             Header="Settings"
+                             Header="{DynamicResource Settings_Title}"
                              Position="Right"
                              Width="300" IsOpenChanged="SettingsFlyout_IsOpenChanged">
                 <Grid>
                     <ScrollViewer VerticalAlignment="Top" Margin="0 0 0 50">
                         <StackPanel Margin="10,0,0,0">
-                            <Label Content="Enter your desired username"
+                            <Label Content="{DynamicResource Enter_Username}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top" />
                             <TextBox x:Name="SettingsUsername"
@@ -594,7 +594,7 @@
                                  Text=""
                                  VerticalAlignment="Top"
                                  Width="275"/>
-                            <Label Content="Enter your desired status message"
+                            <Label Content="{DynamicResource Enter_Status}"
                                HorizontalAlignment="Left"
                                Margin="0 10 0 0"
                                VerticalAlignment="Top" />
@@ -605,7 +605,7 @@
                                  TextWrapping="Wrap"
                                  VerticalAlignment="Top"
                                  Width="275" />
-                            <Label Content="Change nospam (note: this will change your id)"
+                            <Label Content="{DynamicResource Change_Nospam}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left"/>
                             <TextBox x:Name="SettingsNospam"
@@ -615,7 +615,7 @@
                                  TextWrapping="Wrap"
                                  VerticalAlignment="Top"
                                  Width="275" />
-                            <Label Content="Pick an accent color"
+                            <Label Content="{DynamicResource Pick_Accent}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left" />
                             <ComboBox x:Name="AccentComboBox"
@@ -631,7 +631,7 @@
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
                                   Width="275" SelectionChanged="AppThemeComboBox_SelectionChanged" ></ComboBox>
-                            <Label Content="Choose which devices should be used"
+                            <Label Content="{DynamicResource Pick_Devices}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left" />
                             <ComboBox x:Name="InputDevicesComboBox"
@@ -648,34 +648,34 @@
                                   Margin="0,5,0,0"
                                   Width="275" />
                             <CheckBox x:Name="FilterAudioCheckbox" 
-                                  Content="Filter input audio" 
+                                  Content="{DynamicResource Filter_Audio}" 
                                   Margin="0 5" />
                             <CheckBox x:Name="HideInTrayCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,15,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="Hide in tray"
+                                  Content="{DynamicResource Hide_In_Tray}"
                                   ToolTip="Minimize to system tray instead of closing Toxy."
                                   />
                             <CheckBox x:Name="PortableCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="Portable"
+                                  Content="{DynamicResource Portable}"
                                   ToolTip="Save application settings in the executable folder."
                                   />
                             <CheckBox x:Name="ChatLogCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="Enable chat logging"
+                                  Content="{DynamicResource Enable_Chat_Logging}"
                                   ToolTip="Chat logs get saved to a local database and are loaded at launch."
                                   />
                             <CheckBox x:Name="AudioNotificationCheckBox"
                                   VerticalAlignment="Top"
                                   HorizontalAlignment="Left"
                                   Margin="0,5,0,0"
-                                  Content="Enable audible message alerts"
+                                  Content="{DynamicResource Enable_Audible_Alerts}"
                                   ToolTip="Beep on new message unless you are in a voice call."
                                   />
                             <CheckBox x:Name="AlwaysNotifyCheckBox"
@@ -683,7 +683,7 @@
                                       HorizontalAlignment="Left"
                                       Margin="0,5,0,0"
                                       IsEnabled="{Binding ElementName=AudioNotificationCheckBox, Path=IsChecked}"
-                                      Content="Always play sound, even when Toxy is open"
+                                      Content="{DynamicResource Always_Play_Alert}"
                                       />
                             <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
                                 <Label Content="Proxy address"

@@ -14,6 +14,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+                <!-- translations -->
+                <ResourceDictionary Source="pack://application:,,,/Toxy;component/Resources/Translations/nl-NL.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Toxy;component/Resources/Translations/en-US.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
