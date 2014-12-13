@@ -253,7 +253,7 @@ namespace Toxy
             {
                 if (call != null)
                 {
-                    await this.ShowMessageAsync("Error", "Could not join audio groupchat, there's already a call in progress.");
+                    await this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not join audio groupchat, there's already a call in progress.");
                     return;
                 }
                 else
@@ -1041,7 +1041,7 @@ namespace Toxy
                     ToxData data = ToxData.FromDisk(toxDataFilename);
                     if (data == null || !tox.Load(data))
                     {
-                        MessageBox.Show("Could not load tox data, this program will now exit.", "Error");
+                        MessageBox.Show("Could not load tox data, this program will now exit.", (string)FindResource("Local_Error"));
                         Application.Current.Shutdown();
                     }
                 }
@@ -1060,7 +1060,7 @@ namespace Toxy
                 ToxData data = ToxData.FromDisk(toxDataFilename);
                 if (data == null || !tox.Load(data))
                 {
-                    MessageBox.Show("Could not load tox data, this program will now exit.", "Error");
+                    MessageBox.Show("Could not load tox data, this program will now exit.", (string)FindResource("Local_Error"));
                     Close();
                 }
             }
@@ -2332,7 +2332,7 @@ namespace Toxy
                 return;
 
             try { File.WriteAllBytes(dialog.FileName, tox.GetData().Bytes); }
-            catch { this.ShowMessageAsync("Error", "Could not export data."); }
+            catch { this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not export data."); }
         }
 
         private void AvatarMenuItem_MouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -2384,7 +2384,7 @@ namespace Toxy
 
                 if (avatarBytes.Length > 0x4000)
                 {
-                    this.ShowMessageAsync("Error", "This image is bigger than 16 KB and Toxy could not resize the image.");
+                    this.ShowMessageAsync((string)FindResource("Local_Error"), "This image is bigger than 16 KB and Toxy could not resize the image.");
                     return;
                 }
             }
@@ -2531,7 +2531,7 @@ namespace Toxy
 
             if (item == GroupMenuItem.TextAudio && call != null)
             {
-                await this.ShowMessageAsync("Error", "Could not create audio groupchat, there's already a call in progress.");
+                await this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not create audio groupchat, there's already a call in progress.");
                 return;
             }
 
@@ -2672,17 +2672,17 @@ namespace Toxy
                     return;
 
                 if (!LoadProfile(result.Input, false))
-                    await this.ShowMessageAsync("Error", "Could not load profile, make sure it exists/is accessible.");
+                    await this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not load profile, make sure it exists/is accessible.");
             }
             else if (result.Result == SwitchProfileDialogResult.New)
             {
                 string profile = await this.ShowInputAsync("New Profile", "Enter a name for your new profile.");
                 if (string.IsNullOrEmpty(profile))
-                    await this.ShowMessageAsync("Error", "Could not create profile, you must enter a name for your profile.");
+                    await this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not create profile, you must enter a name for your profile.");
                 else
                 {
                     if (!CreateNewProfile(profile))
-                        await this.ShowMessageAsync("Error", "Could not create profile, did you enter a valid name?");
+                        await this.ShowMessageAsync((string)FindResource("Local_Error"), "Could not create profile, did you enter a valid name?");
                 }
             }
         }

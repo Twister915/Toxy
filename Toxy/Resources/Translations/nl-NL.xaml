@@ -43,6 +43,7 @@
     <system:String x:Key="Local_Invite">Uitnodigen</system:String>
     
     <!-- Groups -->
+    <system:String x:Key="Local_Groupchat">Groepschat</system:String>
     <system:String x:Key="Local_Mute">Geluid dempen</system:String>
     <system:String x:Key="Local_Unute">Geluid ontdempen</system:String>
     <system:String x:Key="Local_Ignore">Negeren</system:String>
@@ -55,4 +56,5 @@
     <system:String x:Key="Local_Requests_Header">Verzoeken</system:String>
     <system:String x:Key="Local_Open">Openen</system:String>
     <system:String x:Key="Local_Exit">Afsluiten</system:String>
+    <system:String x:Key="Local_Error">Fout</system:String>
 </ResourceDictionary>

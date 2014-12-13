@@ -43,6 +43,7 @@
     <system:String x:Key="Local_Invite">Invite</system:String>
 
     <!-- Groups -->
+    <system:String x:Key="Local_Groupchat">Groupchat</system:String>
     <system:String x:Key="Local_Mute">Mute</system:String>
     <system:String x:Key="Local_Unute">Unmute</system:String>
     <system:String x:Key="Local_Ignore">Ignore</system:String>
@@ -55,4 +56,5 @@
     <system:String x:Key="Local_Requests_Header">Requests</system:String>
     <system:String x:Key="Local_Open">Open</system:String>
     <system:String x:Key="Local_Exit">Exit</system:String>
+    <system:String x:Key="Local_Error">Error</system:String>
 </ResourceDictionary>
