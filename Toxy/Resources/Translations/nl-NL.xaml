@@ -42,11 +42,12 @@
     <system:String x:Key="Local_Copy_Key">Sleutel Kopiëren</system:String>
     <system:String x:Key="Local_Invite">Uitnodigen</system:String>
     
-    <!-- Peers -->
+    <!-- Groups -->
     <system:String x:Key="Local_Mute">Geluid dempen</system:String>
     <system:String x:Key="Local_Unute">Geluid ontdempen</system:String>
     <system:String x:Key="Local_Ignore">Negeren</system:String>
     <system:String x:Key="Local_Unignore">Stop met negeren</system:String>
+    <system:String x:Key="Local_Change_Title">Titel veranderen</system:String>
 
     <!-- Misc -->
     <system:String x:Key="Local_Switch_Profile">Profiel veranderen</system:String>
