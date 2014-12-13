@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Globalization;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+
 using MahApps.Metro;
 using Toxy.MVVM;
 using NAudio.Wave;
@@ -68,6 +70,20 @@ namespace Toxy.ViewModels
 
         public List<AccentColorMenuData> AccentColors { get; set; }
         public List<AppThemeMenuData> AppThemes { get; set; }
+
+        private List<CultureInfo> languages = new List<CultureInfo>()
+        {
+            new CultureInfo(0x0413),    //nl-NL
+            new CultureInfo(0x0409)     //en-US
+        }.OrderBy(l => l.NativeName).ToList();
+
+        public List<CultureInfo> Languages
+        {
+            get
+            {
+                return languages;
+            }
+        }
 
         public List<OutputDeviceMenuData> OutputDevices 
         {

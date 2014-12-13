@@ -141,12 +141,12 @@ namespace Toxy.Common
             set { enableChatLogging = value; }
         }
 
-        private string culture = "en-US";
+        private string language = "en-US";
 
-        public string Culture
+        public string Language
         {
-            get { return culture; }
-            set { culture = value; }
+            get { return language; }
+            set { language = value; }
         }
 
         private ToxConfigNode[] nodes = new ToxConfigNode[] 

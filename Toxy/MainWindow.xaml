@@ -87,10 +87,10 @@
                     <Image.ContextMenu>
                         <ContextMenu Name="AvatarContextMenu"
                                      MenuItem.Click="AvatarMenuItem_MouseLeftButtonDown">
-                            <MenuItem Header="Edit"
+                                <MenuItem Header="{DynamicResource Local_Edit_Avatar}"
                                       Tag="{x:Static common:AvatarMenuItem.ChangeAvatar}">
                             </MenuItem>
-                            <MenuItem Header="Remove Avatar"
+                                <MenuItem Header="{DynamicResource Local_Remove_Avatar}"
                                       Tag="{x:Static common:AvatarMenuItem.RemoveAvatar}">
                             </MenuItem>
                         </ContextMenu>
@@ -105,7 +105,7 @@
                     <Grid.ContextMenu>
                         <ContextMenu Name="StatusContextMenu"
                                      MenuItem.Click="MenuItem_MouseLeftButtonDown">
-                            <MenuItem Header="Online"
+                            <MenuItem Header="{DynamicResource Local_Status_Online}"
                                       Tag="0">
                                 <MenuItem.Icon>
                                     <Image Width="15"
@@ -113,7 +113,7 @@
                                            Source="Resources/Icons/Online.png"></Image>
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Header="Away"
+                            <MenuItem Header="{DynamicResource Local_Status_Away}"
                                       Tag="1">
                                 <MenuItem.Icon>
                                     <Image Width="15"
@@ -121,7 +121,7 @@
                                            Source="Resources/Icons/Away.png"></Image>
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Header="Busy"
+                            <MenuItem Header="{DynamicResource Local_Status_Busy}"
                                       Tag="2">
                                 <MenuItem.Icon>
                                     <Image Width="15"
@@ -156,7 +156,7 @@
             <TabControl Grid.Row="1"
                         x:Name="ListViewTabControl"
                         SelectionChanged="ListViewTabControl_OnSelectionChanged">
-                <TabItem Header="Chats">
+                <TabItem Header="{DynamicResource Local_Chats_Header}">
                     <Grid>
 
                         <Grid.RowDefinitions>
@@ -213,7 +213,7 @@
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="RequestsTabItem"
-                         Header="Requests">
+                         Header="{DynamicResource Local_Requests_Header}">
 
                     <!-- bind to collection of friend requests -->
                     <ListBox x:Name="ChatRequestsListBox"
@@ -522,7 +522,7 @@
                         <converter:IgnoreStatusToStringConverter x:Key="IgnoreStatusConverter" />
                         <converter:MuteStatusToStringConverter x:Key="MuteStatusConverter" />
                         <ContextMenu x:Key="GroupPeerContextMenu" Name="GroupPeerContextMenu">
-                            <MenuItem Header="Copy Key" Click="GroupPeerCopyKey_Click"/>
+                            <MenuItem Header="{DynamicResource Local_Copy_Key}" Click="GroupPeerCopyKey_Click"/>
                             <MenuItem Header="{Binding Muted, Mode=OneWay, Converter={StaticResource MuteStatusConverter}}" Click="GroupPeerMute_Click"/>
                             <MenuItem Header="{Binding Ignored, Mode=OneWay, Converter={StaticResource IgnoreStatusConverter}}" Click="GroupPeerIgnore_Click"/>
                         </ContextMenu>
@@ -540,12 +540,12 @@
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout x:Name="FriendFlyout"
-                             Header="Add a friend"
+                             Header="{DynamicResource Local_Add_Friend_Title}"
                              Position="Right"
                              Width="325"
                              BorderThickness="0">
                 <Grid>
-                    <Label Content="Enter your friend's ID"
+                    <Label Content="{DynamicResource Local_Enter_ID}"
                            HorizontalAlignment="Left"
                            Margin="10,10,0,0"
                            VerticalAlignment="Top" />
@@ -554,7 +554,7 @@
                              Margin="16,41,10,0"
                              TextWrapping="Wrap"
                              VerticalAlignment="Top" />
-                    <Label Content="Enter an invitation message"
+                    <Label Content="{DynamicResource Local_Enter_Invite_Message}"
                            HorizontalAlignment="Left"
                            Margin="10,85,0,0"
                            VerticalAlignment="Top" />
@@ -564,12 +564,12 @@
                                  VerticalAlignment="Top">
                         <FlowDocument>
                             <Paragraph>
-                                <Run Text="Hello, I'd like to add you to my friends list." />
+                                <Run Text="{DynamicResource Local_Default_Invite_Message}" />
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
                     <Button x:Name="AddFriendButton"
-                            Content="Add"
+                            Content="{DynamicResource Local_Add_Friend_Button}"
                             Margin="0,252,10,0"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
@@ -578,13 +578,13 @@
                 </Grid>
             </controls:Flyout>
             <controls:Flyout x:Name="SettingsFlyout"
-                             Header="{DynamicResource Settings_Title}"
+                             Header="{DynamicResource Local_Settings_Title}"
                              Position="Right"
                              Width="300" IsOpenChanged="SettingsFlyout_IsOpenChanged">
                 <Grid>
                     <ScrollViewer VerticalAlignment="Top" Margin="0 0 0 50">
                         <StackPanel Margin="10,0,0,0">
-                            <Label Content="{DynamicResource Enter_Username}"
+                            <Label Content="{DynamicResource Local_Enter_Username}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top" />
                             <TextBox x:Name="SettingsUsername"
@@ -594,7 +594,7 @@
                                  Text=""
                                  VerticalAlignment="Top"
                                  Width="275"/>
-                            <Label Content="{DynamicResource Enter_Status}"
+                            <Label Content="{DynamicResource Local_Enter_Status}"
                                HorizontalAlignment="Left"
                                Margin="0 10 0 0"
                                VerticalAlignment="Top" />
@@ -605,7 +605,16 @@
                                  TextWrapping="Wrap"
                                  VerticalAlignment="Top"
                                  Width="275" />
-                            <Label Content="{DynamicResource Change_Nospam}"
+                            <Label Content="{DynamicResource Local_Change_Language}"
+                               Margin="0 10 0 0"
+                               HorizontalAlignment="Left"/>
+                            <ComboBox x:Name="LanguageComboBox"
+                                  ItemsSource="{Binding Languages}"
+                                  DisplayMemberPath="NativeName"
+                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Left"
+                                  Width="275"/>
+                            <Label Content="{DynamicResource Local_Change_Nospam}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left"/>
                             <TextBox x:Name="SettingsNospam"
@@ -615,7 +624,7 @@
                                  TextWrapping="Wrap"
                                  VerticalAlignment="Top"
                                  Width="275" />
-                            <Label Content="{DynamicResource Pick_Accent}"
+                            <Label Content="{DynamicResource Local_Pick_Accent}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left" />
                             <ComboBox x:Name="AccentComboBox"
@@ -631,7 +640,7 @@
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
                                   Width="275" SelectionChanged="AppThemeComboBox_SelectionChanged" ></ComboBox>
-                            <Label Content="{DynamicResource Pick_Devices}"
+                            <Label Content="{DynamicResource Local_Pick_Devices}"
                                Margin="0 10 0 0"
                                HorizontalAlignment="Left" />
                             <ComboBox x:Name="InputDevicesComboBox"
@@ -648,34 +657,34 @@
                                   Margin="0,5,0,0"
                                   Width="275" />
                             <CheckBox x:Name="FilterAudioCheckbox" 
-                                  Content="{DynamicResource Filter_Audio}" 
+                                  Content="{DynamicResource Local_Filter_Audio}" 
                                   Margin="0 5" />
                             <CheckBox x:Name="HideInTrayCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,15,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="{DynamicResource Hide_In_Tray}"
+                                  Content="{DynamicResource Local_Hide_In_Tray}"
                                   ToolTip="Minimize to system tray instead of closing Toxy."
                                   />
                             <CheckBox x:Name="PortableCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="{DynamicResource Portable}"
+                                  Content="{DynamicResource Local_Portable}"
                                   ToolTip="Save application settings in the executable folder."
                                   />
                             <CheckBox x:Name="ChatLogCheckBox"
                                   VerticalAlignment="Top"
                                   Margin="0,5,0,0"
                                   HorizontalAlignment="Left"
-                                  Content="{DynamicResource Enable_Chat_Logging}"
+                                  Content="{DynamicResource Local_Enable_Chat_Logging}"
                                   ToolTip="Chat logs get saved to a local database and are loaded at launch."
                                   />
                             <CheckBox x:Name="AudioNotificationCheckBox"
                                   VerticalAlignment="Top"
                                   HorizontalAlignment="Left"
                                   Margin="0,5,0,0"
-                                  Content="{DynamicResource Enable_Audible_Alerts}"
+                                  Content="{DynamicResource Local_Enable_Audible_Alerts}"
                                   ToolTip="Beep on new message unless you are in a voice call."
                                   />
                             <CheckBox x:Name="AlwaysNotifyCheckBox"
@@ -683,13 +692,13 @@
                                       HorizontalAlignment="Left"
                                       Margin="0,5,0,0"
                                       IsEnabled="{Binding ElementName=AudioNotificationCheckBox, Path=IsChecked}"
-                                      Content="{DynamicResource Always_Play_Alert}"
+                                      Content="{DynamicResource Local_Always_Play_Alert}"
                                       />
                             <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                                <Label Content="Proxy address"
+                                <Label Content="{DynamicResource Local_Proxy_Address}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top" />
-                                <Label Content="Proxy port"
+                                <Label Content="{DynamicResource Local_Proxy_Port}"
                                     Margin="120 0 0 0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top" />
@@ -715,7 +724,7 @@
                                   VerticalAlignment="Top"
                                   HorizontalAlignment="Left"
                                   Margin="0,5,0,0"
-                                  Content="Enable proxy"
+                                  Content="{DynamicResource Local_Enable_Proxy}"
                                   />
                         </StackPanel>
                     </ScrollViewer>
@@ -727,17 +736,17 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="ExportDataButton"
-                                Content="Export"
+                                Content="{DynamicResource Local_Export_Profile}"
                                 Grid.Column="1"
                                 Width="75"
                                 Click="ExportDataButton_OnClick" />
                         <Button x:Name="SaveSettingsButton"
-                                Content="Save"
+                                Content="{DynamicResource Local_Save_Settings}"
                                 Grid.Column="3"
                                 Width="75"
                                 Click="SaveSettingsButton_OnClick" />
                         <Button x:Name="CopyIdButton"
-                                Content="Copy ID"
+                                Content="{DynamicResource Local_Copy_ID}"
                                 Width="75"
                                 Grid.Column="2"
                                 Click="CopyIDButton_Click" />
@@ -764,7 +773,7 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button x:Name ="SwitchProfileButton" Click="SwitchProfileButton_Click">
-                <TextBlock VerticalAlignment="Center" Text="Switch Profile" />
+                <TextBlock VerticalAlignment="Center" Text="{DynamicResource Local_Switch_Profile}" />
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
@@ -772,15 +781,15 @@
         <TaskbarItemInfo Description="Status Controls">
             <TaskbarItemInfo.ThumbButtonInfos>
                 <ThumbButtonInfoCollection>
-                    <ThumbButtonInfo Description="Online"
+                    <ThumbButtonInfo Description="{DynamicResource Local_Status_Online}"
                                      DismissWhenClicked="False"
                                      Click="OnlineThumbButton_Click"
                                      ImageSource="Resources/Icons/Online.png" />
-                    <ThumbButtonInfo Description="Away"
+                    <ThumbButtonInfo Description="{DynamicResource Local_Status_Away}"
                                      DismissWhenClicked="False"
                                      Click="AwayThumbButton_Click"
                                      ImageSource="Resources/Icons/Away.png" />
-                    <ThumbButtonInfo Description="Busy"
+                    <ThumbButtonInfo Description="{DynamicResource Local_Status_Busy}"
                                      DismissWhenClicked="False"
                                      Click="BusyThumbButton_Click"
                                      ImageSource="Resources/Icons/Busy.png" />

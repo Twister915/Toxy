@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Drawing.Imaging;
+using System.Globalization;
 using Microsoft.Win32;
 
 using MahApps.Metro;
@@ -1079,7 +1080,7 @@ namespace Toxy
 
         private void applyConfig()
         {
-            App.SetCulture(config.Culture);
+            App.SetCulture(config.Language);
 
             var accent = ThemeManager.GetAccent(config.AccentColor);
             var theme = ThemeManager.GetAppTheme(config.Theme);
@@ -1102,13 +1103,13 @@ namespace Toxy
             nIcon.MouseClick += nIcon_MouseClick;
 
             var trayIconContextMenu = new System.Windows.Forms.ContextMenu();
-            var closeMenuItem = new System.Windows.Forms.MenuItem("Exit", closeMenuItem_Click);
-            var openMenuItem = new System.Windows.Forms.MenuItem("Open", openMenuItem_Click);
+            var closeMenuItem = new System.Windows.Forms.MenuItem((string)FindResource("Local_Exit"), closeMenuItem_Click);
+            var openMenuItem = new System.Windows.Forms.MenuItem((string)FindResource("Local_Open"), openMenuItem_Click);
 
             var statusMenuItem = new System.Windows.Forms.MenuItem("Status");
-            var setOnlineMenuItem = new System.Windows.Forms.MenuItem("Online", setStatusMenuItem_Click);
-            var setAwayMenuItem = new System.Windows.Forms.MenuItem("Away", setStatusMenuItem_Click);
-            var setBusyMenuItem = new System.Windows.Forms.MenuItem("Busy", setStatusMenuItem_Click);
+            var setOnlineMenuItem = new System.Windows.Forms.MenuItem((string)FindResource("Local_Status_Online"), setStatusMenuItem_Click);
+            var setAwayMenuItem = new System.Windows.Forms.MenuItem((string)FindResource("Local_Status_Away"), setStatusMenuItem_Click);
+            var setBusyMenuItem = new System.Windows.Forms.MenuItem((string)FindResource("Local_Status_Busy"), setStatusMenuItem_Click);
 
             setOnlineMenuItem.Tag = 0; // Online
             setAwayMenuItem.Tag = 1; // Away
@@ -1529,7 +1530,7 @@ namespace Toxy
 
             if (ListViewTabControl.SelectedIndex != 1)
             {
-                RequestsTabItem.Header = "Requests*";
+                RequestsTabItem.Header = (string)FindResource("Local_Requests_Header") + "*";
             }
         }
 
@@ -1755,6 +1756,9 @@ namespace Toxy
                 if (OutputDevicesComboBox.Items.Count - 1 >= config.OutputDevice)
                     OutputDevicesComboBox.SelectedIndex = config.OutputDevice;
 
+                var lang = ViewModel.Languages.First(l => l.Name == config.Language);
+                LanguageComboBox.SelectedItem = lang;
+
                 ChatLogCheckBox.IsChecked = config.EnableChatLogging;
                 HideInTrayCheckBox.IsChecked = config.HideInTray;
                 PortableCheckBox.IsChecked = config.Portable;
@@ -1886,6 +1890,13 @@ namespace Toxy
             index = OutputDevicesComboBox.SelectedIndex + 1;
             if (index != 0 && WaveOut.DeviceCount > 0 && WaveOut.DeviceCount >= index)
                 config.OutputDevice = index - 1;
+
+            var lang = LanguageComboBox.SelectedItem as CultureInfo;
+            if (lang != null)
+            {
+                config.Language = lang.Name;
+                App.SetCulture(lang.Name);
+            }
 
             config.EnableChatLogging = (bool)ChatLogCheckBox.IsChecked;
             config.Portable = (bool)PortableCheckBox.IsChecked;
@@ -2095,7 +2106,7 @@ namespace Toxy
         private void ListViewTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (RequestsTabItem.IsSelected)
-                RequestsTabItem.Header = "Requests";
+                RequestsTabItem.Header = (string)FindResource("Local_Requests_Header");
         }
 
         private void StatusRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

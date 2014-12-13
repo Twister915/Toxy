@@ -15,11 +15,11 @@
     <UserControl.ContextMenu>
         <!-- DataContext is FriendControlModelView -->
         <ContextMenu DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}">
-            <MenuItem Header="Copy Key"
+            <MenuItem Header="{DynamicResource Local_Copy_Key}"
                       Command="{Binding DataContext.CopyIDCommand, Mode=OneWay}" />
-            <MenuItem Header="Delete"
+            <MenuItem Header="{DynamicResource Local_Delete}"
                       Command="{Binding DataContext.DeleteCommand, Mode=OneWay}" />
-            <MenuItem Header="Invite"
+            <MenuItem Header="{DynamicResource Local_Invite}"
                       x:Name="InviteMenuItem"
                       Visibility="{Binding DataContext.MainViewModel.AnyGroupsExists, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                       ItemsSource="{Binding DataContext.MainViewModel.GroupChatCollection, Mode=OneWay}">
