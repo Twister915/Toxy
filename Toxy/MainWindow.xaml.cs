@@ -1577,6 +1577,11 @@ namespace Toxy
             CallButton.Visibility = Visibility.Collapsed;
             FileButton.Visibility = Visibility.Collapsed;
 
+            if (tox.GetGroupType(group.ChatNumber) == ToxGroupType.Av)
+                MicButton.Visibility = Visibility.Visible;
+            else
+                MicButton.Visibility = Visibility.Collapsed;
+
             if (groupdic.ContainsKey(group.ChatNumber))
             {
                 ChatBox.Document = groupdic[group.ChatNumber];
@@ -1660,6 +1665,8 @@ namespace Toxy
                 }
             }
 
+            MicButton.Visibility = Visibility.Collapsed;
+
             if (convdic.ContainsKey(friend.ChatNumber))
             {
                 ChatBox.Document = convdic[friend.ChatNumber];
@@ -1686,12 +1693,12 @@ namespace Toxy
             }
             else
             {
-                KillTox();
+                KillTox(true);
                 nIcon.Dispose();
             }
         }
 
-        private void KillTox()
+        private void KillTox(bool save)
         {
             if (call != null)
             {
@@ -1718,7 +1725,9 @@ namespace Toxy
 
             if (tox != null)
             {
-                saveTox();
+                if (save)
+                    saveTox();
+
                 tox.Dispose();
             }
 
@@ -2714,7 +2723,7 @@ namespace Toxy
             if (!File.Exists(Path.Combine(toxDataDir, profile + ".tox")))
                 return false;
 
-            KillTox();
+            KillTox(false);
             ViewModel.ChatCollection.Clear();
 
             config.ProfileName = profile;
@@ -2749,6 +2758,15 @@ namespace Toxy
                 return;
 
             peer.Ignored = !peer.Ignored;
+        }
+
+        private void MicButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (call == null || call.GetType() != typeof(ToxGroupCall))
+                return;
+
+            var groupCall = (ToxGroupCall)call;
+            groupCall.Muted = !groupCall.Muted;
         }
     }
 }
