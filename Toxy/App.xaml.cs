@@ -1,8 +1,10 @@
+using System;
 ﻿using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
 using System.Threading;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace Toxy
 {
@@ -32,6 +34,12 @@ namespace Toxy
     
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine("Toxy crashed: " + e.Exception.ToString());
+            e.Handled = false;
         }
     }
 }
